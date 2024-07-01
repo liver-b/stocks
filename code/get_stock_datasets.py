@@ -1,6 +1,13 @@
 import yfinance as yf
-from yahoo_fin.stock_info import get_data
+from yahoo_fin.stock_info import get_data, tickers_sp500, tickers_nasdaq
 import json
 
-data = get_data('AAPL', start_date="06/24/2024", end_date="06/29/2024", index_as_date = True, interval = "1m")
-data.to_csv('output.csv')
+ticker_symbols_file = open('code\\ticker_symbols.txt','r')
+ticker_symbols_string = ticker_symbols_file.read()
+ticker_symbols = ticker_symbols_string.split(',')
+
+print(ticker_symbols)
+
+for ticker_symbol in ticker_symbols:
+    data = get_data(ticker_symbol, start_date="06/25/2024", end_date="06/25/2024", index_as_date = True, interval = "1m")
+    data.to_csv('code\\datasets\\output' + ticker_symbol + '.csv')
